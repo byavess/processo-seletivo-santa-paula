@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Exames</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Lista de Exames</h1>
+
+    <div class="actions">
+        <a th:href="@{/}">Voltar</a>
+        <a th:href="@{/exportar}">Exportar Excel</a>
+    </div>
+
+    <div class="table-responsive">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>DATA</th>
+                <th>HORA</th>
+                <th>OS</th>
+                <th>PACIENTE</th>
+                <th>SEXO</th>
+                <th>DN</th>
+                <th>BAIRRO</th>
+                <th>Solicitante</th>
+                <th>Un. coleta</th>
+                <th>Fonte pag</th>
+                <th>Atendente</th>
+                <th>Mnemônico</th>
+                <th>Procedimento</th>
+                <th>Vl Fat</th>
+                <th>Vl. Blc Bruto</th>
+                <th>Vl. Blc Desconto O.S.</th>
+                <th>Vl. Blc Imposto</th>
+                <th>Vl. Blc Líquido</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="exame : ${exames}">
+                <td th:text="${exame.id}"></td>
+                <td th:text="${exame.data != null ? #temporals.format(exame.data, 'dd/MM/yyyy') : ''}"></td>
+                <td th:text="${exame.hora != null ? exame.hora : ''}"></td>
+                <td th:text="${exame.os}"></td>
+                <td th:text="${exame.paciente}"></td>
+                <td th:text="${exame.sexo}"></td>
+                <td th:text="${exame.dataNascimento != null ? #temporals.format(exame.dataNascimento, 'dd/MM/yyyy') : ''}"></td>
+                <td th:text="${exame.bairro}"></td>
+                <td th:text="${exame.solicitante}"></td>
+                <td th:text="${exame.unidadeColeta}"></td>
+                <td th:text="${exame.fontePagadora}"></td>
+                <td th:text="${exame.atendente}"></td>
+                <td th:text="${exame.mnemonic}"></td>
+                <td th:text="${exame.procedimento}"></td>
+                <td th:text="${exame.valorFaturamento != null ? #numbers.formatDecimal(exame.valorFaturamento, 1, 2) : '0,00'}"></td>
+                <td th:text="${exame.valorBruto != null ? #numbers.formatDecimal(exame.valorBruto, 1, 2) : '0,00'}"></td>
+                <td th:text="${exame.valorDesconto != null ? #numbers.formatDecimal(exame.valorDesconto, 1, 2) : '0,00'}"></td>
+                <td th:text="${exame.valorImposto != null ? #numbers.formatDecimal(exame.valorImposto, 1, 2) : '0,00'}"></td>
+                <td th:text="${exame.valorLiquido != null ? #numbers.formatDecimal(exame.valorLiquido, 1, 2) : '0,00'}"></td>
+                <td>
+                    <a th:href="@{/editar/{id}(id=${exame.id})}">Editar</a>
+                    <a th:href="@{/excluir/{id}(id=${exame.id})}"
+                       onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
